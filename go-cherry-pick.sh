@@ -1,6 +1,6 @@
 #!/bin/bash
 #read -p "enter source branch name you want to cherry-pick from: "  branch_name
-branch_name='rel4_master'
+branch_name='rel8_master'
 
 git log --oneline --reverse $branch_name | while read LINE
 do
@@ -17,7 +17,7 @@ do
 			echo "$commit_id is from ancestor"
 		else
 			echo "Cherry-pick $commit_id..."
-			git cherry-pick -X $commit_id theirs
+			git cherry-pick $commit_id -X theirs
 			# Fix conflicts
 			if [ $? -ne 0 ]; then
 				git status | sed -n 's/deleted by us://p' | xargs git add
